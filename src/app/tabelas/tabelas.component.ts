@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConsumousuariosService } from '../services/consumousuarios.service';
 import { UsuariosRegistrados } from '../services/UsuariosRegistrados';
-import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-tabelas',
@@ -10,18 +9,14 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 
 export class TabelasComponent implements OnInit {
-  ELEMENT_DATA: UsuariosRegistrados[] = [];
-  displayedColumns: string[] = ['Id', 'Login', 'Nome', 'Senha'];
-  dataSource = new MatTableDataSource<UsuariosRegistrados>(this.ELEMENT_DATA);
+  users: any;
+  displayedColumns: string[] = ['id', 'login', 'nome', 'senha'];
   
-  constructor(private service: ConsumousuariosService){}
+  constructor(private user:ConsumousuariosService){}
 
   ngOnInit(): void {
-      this.getAllUsuarios();
-  }
-
-  public getAllUsuarios(){
-    let resp= this.service.getUsuarios();
-    resp.subscribe(usuarios=>this.dataSource.data=usuarios as UsuariosRegistrados[]);
+    this.user.getUsuarios().subscribe((res: UsuariosRegistrados) => {
+      this.users = res;
+    });
   }
 }
