@@ -12,6 +12,6 @@ export class ConsumousuariosService {
   constructor(private http: HttpClient) {}
   
   public getUsuarios(){
-    return this.http.get(`${this.SERVER_URL}/usuarios`);
+    return this.http.get<UsuariosRegistrados>(`${this.SERVER_URL}/usuarios`);
   }
 }
